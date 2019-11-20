@@ -1,4 +1,4 @@
-package com.skillstorm.servlet_controller;
+package com.skillstorm.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.skillstorm.data.TimeSheet;
 import com.skillstorm.data.User;
-import com.skillstorm.servlet_controller.ConnectionFactory;
 
 public class TimeSheetDAO 
 {
@@ -19,23 +19,6 @@ public class TimeSheetDAO
 		Connection conn;
 		conn = ConnectionFactory.getInstance().getConnection();
 		return conn;
-	}
-
-	public User findByUserName(String username) throws SQLException 
-	{
-		String query = "SELECT UserId, UserName FROM user WHERE userid = ?";
-		connection = getConnection();
-		
-		preStatement = connection.prepareStatement(query);
-		preStatement.setString(1, username);
-		
-		resultSet = preStatement.executeQuery();
-		resultSet.next(); 
-		
-		User user = new User(resultSet.getString(2), resultSet.getString(3));
-		connection.close();
-		
-		return user;
 	}
 	
 	public User getCredentials(String username) throws SQLException 
@@ -59,7 +42,7 @@ public class TimeSheetDAO
 	public static void main(String[] args) throws SQLException 
 	{
 		TimeSheetDAO dao = new TimeSheetDAO();
-		User user = dao.getCredentials("ms36");
+		User user = dao.getCredentials("masterjedi");
 		
 		System.out.print(user.getUserame() + " ");
 		System.out.println(user.getPassword());
@@ -80,7 +63,6 @@ public class TimeSheetDAO
 		}*/
 	}
 	// TODO Add more methods in TimeSheetDAO
-/*public List<TimeSheet> findTimeSheetByUser(int id){};
-public TimeSheet findTimeSheetbyId(int id) {};
-public TimeSheet save(TimeSheet t) {};*/
+//public List<TimeSheet> findTimeSheetByUser(int UserName){};
+
 }
