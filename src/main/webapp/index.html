@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>TimeSheet-Portal</title>
+</head>
+<body>
+	<form method="get"  action="/timesheet/portal">
+		<label> Username</label><br><input type="text" name="username"  required maxlength="16"/> 
+		<br />
+		<label> Password</label><br><input type="password" name="password"  required maxlength="16"/> 
+		<br />
+		<!-- Creates a button that creates an HTTP request -->
+		<input type="submit" name="Register" value="  Submit  " />
+		<br />
+		<label for="start">End date:</label>
+		<br />
+		<input type="date" id="start" name="trip-start"
+       			value="2019-12-05"
+       			min="2019-01-01" max="2020-12-31">
+
+	</form>
+</body>
+</html>

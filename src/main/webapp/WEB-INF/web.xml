@@ -4,19 +4,18 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 
-	<display-name>timesheet-portal</display-name>
+	<display-name>timesheet</display-name>
 
-<!-- Front Controller -->
+	<!-- Front Controller -->
 	<servlet>
 		<servlet-name>Bob</servlet-name>
-		<servlet-class></servlet-class>
+		<servlet-class>com.skillstorm.servlet_controller.DispatcherServlet</servlet-class>
 	</servlet>
 
-	<!-- any request for url/hello... send to Bob(post, put, get...) -->
+	<!-- any request for url/timesheet... send to Bob -->
 	<servlet-mapping>
 		<servlet-name>Bob</servlet-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/portal</url-pattern>
 	</servlet-mapping>
-
 
 </web-app>
