@@ -21,9 +21,10 @@ public class TimeSheetDAO
 		return conn;
 	}
 	
-	public User getCredentials(String username) throws SQLException 
+	// Get timesheet 
+	public User getTimesheetbyId(String username, int timesheetid) throws SQLException 
 	{
-		String query = "SELECT UserName, PassWord FROM user WHERE username = ?";
+		String query = "SELECT * FROM timesheet WHERE timesheetid = ?";
 		connection = getConnection();
 		
 		preStatement = connection.prepareStatement(query);
@@ -38,11 +39,57 @@ public class TimeSheetDAO
 		return user;
 	}
 	
+	// Get username and password using username
+	public User getCredentialsbyUsername(String username)
+	{
+		User user = null;
+		
+		try
+		{
+			String query = "SELECT UserName, Password FROM user WHERE username = ?";
+			connection = getConnection();
+			
+			preStatement = connection.prepareStatement(query);
+			preStatement.setString(1, username);
+			
+			resultSet = preStatement.executeQuery();
+			resultSet.next(); 
+			
+			user = new User(resultSet.getString(1), resultSet.getString(2));
+			connection.close();
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				if (preStatement != null)
+					preStatement.close();
+				if (connection != null)
+					connection.close();
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+
+		}
+		
+		return user;
+	}
+	
 	/// ************************ TEST ***************************************
 	public static void main(String[] args) throws SQLException 
 	{
 		TimeSheetDAO dao = new TimeSheetDAO();
-		User user = dao.getCredentials("masterjedi");
+		User user = dao.getCredentialsbyUsername("masterjedi");
 		
 		System.out.print(user.getUserame() + " ");
 		System.out.println(user.getPassword());
