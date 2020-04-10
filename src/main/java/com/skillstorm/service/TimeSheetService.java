@@ -1,6 +1,5 @@
 package com.skillstorm.service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.skillstorm.DAO.TimeSheetDAO;
@@ -12,8 +11,7 @@ public class TimeSheetService
 	TimeSheetDAO timesheetdao = new TimeSheetDAO();
 	
 	public User getCredentialsbyUsername(User userFromClient) 
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: getCredentialsbyUsername ~~~~~~~~~~~~~~~~~~~\n");
+	{		
 		User userFromDataBase = null;
 		
 		// Path to Database from Client
@@ -23,8 +21,7 @@ public class TimeSheetService
 		}
 		else
 		{
-			//TODO return message saying nothing is entered
-			System.out.println("TimeSheetService: User name is null");
+			// TODO return message saying nothing is entered			
 		}
 		
 		// Path back to Client
@@ -32,57 +29,38 @@ public class TimeSheetService
 		if(((userFromClient.getPassword()).equals(userFromDataBase.getPassword()))
 		&& ((userFromClient.getUsername()).equals(userFromDataBase.getUsername())))
 		{
-			userFromDataBase.setLoggedIn(true);
-			System.out.println("TimeSheetService: Success! You are logged in");
+			userFromDataBase.setLoggedIn(true);			
 		}
 		else
-		{
-			System.out.println("TimeSheetService: User name and password don't match");
-			System.out.println("TimeSheetService: UserInput username: " + userFromClient.getUsername());
-			System.out.println("TimeSheetService: Retrieved username: " + userFromDataBase.getUsername());
-			System.out.println("TimeSheetService: UserInput password: " + userFromClient.getPassword());
-			System.out.println("TimeSheetService: Retrieved password: " + userFromDataBase.getPassword());
-			
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: getCredentialsbyUsername End ~~~~~~~~~~~~~~~~~~~\n");
+		{			
+			// TODO return message saying username/password invalid	
+		}		
 		return userFromDataBase;
 	}
 	
 	
-	public void NewTimeSheet(int userid, String dateEnd)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: NewTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		timesheetdao.NewTimeSheet(userid, dateEnd);
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: NewTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+	public void newTimeSheet(int userid, String dateEnd)
+	{		
+		timesheetdao.newTimeSheet(userid, dateEnd);		
 	}
 	
-	public void SubmitTimeSheet(int userid, String dateEnd)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: SubmitTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		timesheetdao.SubmitTimeSheet(userid, dateEnd);
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: SubmitTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+	public void submitTimeSheet(int userid, String dateEnd)
+	{		
+		timesheetdao.submitTimeSheet(userid, dateEnd);		
 	}
 	
-	public void SaveTimeSheet(TimeSheet timesheet)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: SaveTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		timesheetdao.SaveTimeSheet(timesheet);
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: SaveTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+	public void saveTimeSheet(TimeSheet timesheet)
+	{		
+		timesheetdao.saveTimeSheet(timesheet);		
 	}
 	
 	public TimeSheet getTimeSheet(int userid, String dateEnd)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: getTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: getTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+	{					
 		return timesheetdao.getTimeSheet(userid, dateEnd);
 	}
 	
 	public List<TimeSheet> getAllTimesheetabyUserId(int userid)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: getAllTimesheetabyUserId ~~~~~~~~~~~~~~~~~~~\n");
-		
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetService: getAllTimesheetabyUserId End ~~~~~~~~~~~~~~~~~~~\n");
+	{		
 		return timesheetdao.getAllTimesheetabyUserId(userid);
 	}
 }

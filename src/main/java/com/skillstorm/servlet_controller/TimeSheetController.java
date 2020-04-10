@@ -16,13 +16,11 @@ public class TimeSheetController
 	TimeSheetService timesheetservice = new TimeSheetService();
 	
 	public void getCredentials(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: getCredentials ~~~~~~~~~~~~~~~~~~~\n");
-		
+	{		
 		resp.setContentType("application/json");
 				
 		// Get the Username/Password entered
-		User userIn =  new User();//new ObjectMapper().readValue(req.getInputStream(), User.class);//
+		User userIn =  new User();
 		User userOut = new User();
 		userIn.setUsername(req.getParameter("username"));
 		userIn.setPassword(req.getParameter("password"));
@@ -39,62 +37,45 @@ public class TimeSheetController
 		else
 		{
 			resp.setStatus(401);
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: getCredentials End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 	}
 	
-	public void NewTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: NewTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	public void newTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	{		
 		int userid = Integer.parseInt(req.getParameter("userid"));
 		String dateEnd = req.getParameter("dateEnd");
 		
-		timesheetservice.NewTimeSheet(userid, dateEnd);
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: NewTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");		
-		}
+		timesheetservice.newTimeSheet(userid, dateEnd);			
+	}
 	
-	public void SubmitTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: SubmitTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	public void submitTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	{		
 		int userid = Integer.parseInt(req.getParameter("userid"));
 		String dateEnd = req.getParameter("dateEnd");
 		
-		timesheetservice.SubmitTimeSheet(userid, dateEnd);
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: SubmitTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");		
-		}
+		timesheetservice.submitTimeSheet(userid, dateEnd);		
+	}
 	
-	public void SaveTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: SaveTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-				
+	public void saveTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+	{					
 		resp.setContentType("application/json");
-		timesheetservice.SaveTimeSheet(new ObjectMapper().readValue(req.getInputStream(), TimeSheet.class));
-		
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: SaveTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");		
-		}
+		timesheetservice.saveTimeSheet(new ObjectMapper().readValue(req.getInputStream(), TimeSheet.class));					
+	}
 	
 	public void getTimeSheet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: getTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	{		
 		TimeSheet timesheet = new TimeSheet();
 		int userid = Integer.parseInt(req.getParameter("userid"));
 		String dateEnd = req.getParameter("dateEnd");
 		
 		timesheet = timesheetservice.getTimeSheet(userid, dateEnd);
 		
-		resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheet));
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: getTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");		
+		resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheet));		
 	}
 	
 	public void getAllTimesheetabyUserId(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: getAllTimesheetabyUserId ~~~~~~~~~~~~~~~~~~~\n");
-		
+	{				
 		int userid = Integer.parseInt(req.getParameter("userid"));
-		resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheetservice.getAllTimesheetabyUserId(userid)));
-	System.out.println("~~~~~~~~~~~~~~~ TimeSheetController: getAllTimesheetabyUserId End ~~~~~~~~~~~~~~~~~~~\n");		
+		resp.getWriter().println(new ObjectMapper().writeValueAsString(timesheetservice.getAllTimesheetabyUserId(userid)));	
 	}
 }

@@ -1,21 +1,26 @@
 package com.skillstorm.DAO;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.skillstorm.data.TimeSheet;
 import com.skillstorm.data.User;
+
+
 
 public class TimeSheetDAO 
 {
 	Connection connection = null;
 	PreparedStatement preStatement = null;
-	ResultSet resultSet = null;
+	ResultSet resultSet = null;	
+	
+	private static final Logger log = Logger.getGlobal();
 
 	private Connection getConnection() throws SQLException 
 	{
@@ -25,10 +30,8 @@ public class TimeSheetDAO
 	}
 	
 	// Create a new TimeSheet
-	public void NewTimeSheet(int userid, String dateEnd)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: NewTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	public void newTimeSheet(int userid, String dateEnd)
+	{		
 		try
 		{
 			String query = "INSERT INTO TimeSheet (MondaysHours, TuesdaysHours, WednesdaysHours, "
@@ -45,20 +48,17 @@ public class TimeSheetDAO
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		finally 
 		{
 			tryCatchInFinally();
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: NewTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 	}
 	
 	// Changes TimeSheet's submitted to true
-	public void SubmitTimeSheet(int userid, String dateEnd)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: SubmitTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	public void submitTimeSheet(int userid, String dateEnd)
+	{		
 		try
 		{
 			String query = "UPDATE TimeSheet SET Submitted = true WHERE UserId = ? AND DateEndingIn = ?";
@@ -72,20 +72,17 @@ public class TimeSheetDAO
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		finally 
 		{
 			tryCatchInFinally();
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: SubmitTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 	}
 		
 	// Updates the TimeSheet
-	public void SaveTimeSheet(TimeSheet timesheet)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: SaveTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	public void saveTimeSheet(TimeSheet timesheet)
+	{							
 		try
 		{
 			String query = "UPDATE TimeSheet SET  MondaysHours = ?, TuesdaysHours = ?, WednesdaysHours = ?, ThursdaysHours = ?, FridaysHours = ?, SaturdaysHours = ?, SundaysHours = ? WHERE UserId = ? AND DateEndingIn = ?";
@@ -106,20 +103,17 @@ public class TimeSheetDAO
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		finally 
 		{
 			tryCatchInFinally();
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: SaveTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 	}
 		
 	// Get a TimeSheet for a single week from a specific user
 	public TimeSheet getTimeSheet(int userid, String dateEnd)
-	{
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: getTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		
+	{			
 		TimeSheet timesheet = new TimeSheet();
 		
 		try
@@ -144,25 +138,22 @@ public class TimeSheetDAO
 			timesheet.setWeekDayHours(6, resultSet.getDouble(8));
 			timesheet.setWeekEndingDate(resultSet.getString(9));
 			timesheet.user.setUserId(resultSet.getInt(10));
-			timesheet.SetSubitted(resultSet.getBoolean(11));
+			timesheet.setSubmitted(resultSet.getBoolean(11));
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		finally 
 		{
 			tryCatchInFinally();
-		}
-	
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: getTimeSheet End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 		return timesheet;
 	}
 		
 	// Get all TimeSheets with user id
 	public List<TimeSheet> getAllTimesheetabyUserId(int userid)
-	{		
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: getAllTimesheetabyUserId ~~~~~~~~~~~~~~~~~~~\n");
+	{				
 		LinkedList<TimeSheet> results = new LinkedList<>();
 		
 		try 
@@ -189,27 +180,25 @@ public class TimeSheetDAO
 				ts.setWeekDayHours(6, resultSet.getDouble(8));
 				ts.setWeekEndingDate(resultSet.getString(9));
 				ts.user.setUserId(resultSet.getInt(10));
-				ts.SetSubitted(resultSet.getBoolean(11));
+				ts.setSubmitted(resultSet.getBoolean(11));
 				
 				results.add(ts);
 			}
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		finally 
 		{
 			tryCatchInFinally();
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: getAllTimesheetabyUserId End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 		return results;
 	}
 	
 	// Get username and password with user name
 	public User getCredentialsbyUsername(String username)
-	{		
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: getCredentialsbyUsername ~~~~~~~~~~~~~~~~~~~\n");
+	{				
 		User user = new User();
 		try
 		{
@@ -230,13 +219,12 @@ public class TimeSheetDAO
 		}
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		finally 
 		{
 			tryCatchInFinally();
-		}
-		System.out.println("~~~~~~~~~~~~~~~ TimeSheetDAO: getCredentialsbyUsername End ~~~~~~~~~~~~~~~~~~~\n");
+		}		
 		return user;
 	}
 	
@@ -252,59 +240,11 @@ public class TimeSheetDAO
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		} 
 		catch (Exception e) 
 		{
-			e.printStackTrace();
+			log.info(e.toString());
 		}
-	}
-	/// ************************ TEST ***************************************
-	public static void main(String[] args) throws SQLException 
-	{
-		
-		List<TimeSheet> ts = new LinkedList<>();
-		TimeSheetDAO dao = new TimeSheetDAO();
-
-		
-		ts = dao.getAllTimesheetabyUserId(1);
-		
-		Iterator<TimeSheet> tslist = ts.iterator();
-		 
-		while( tslist.hasNext() )
-		    System.out.println( tslist.next() );
-		
-		/*
-		TimeSheet timesheet = dao.getTimeSheet(1, "2019/11/24");
-		
-		System.out.println(timesheet.getTimeSheetId());
-		
-		
-		for (int i = 0; i < 7; i++)
-		{
-			System.out.println(timesheet.getWeekDayHours(i));
-		}
-		System.out.println(timesheet.getWeekEndingDate());
-		System.out.println(timesheet.user.getUserId());
-		System.out.println(timesheet.isSubitted());
-		
-		dao.SaveTimeSheet(timesheet);
-		*/
-		System.out.println("~~~~~~~~~~~~~~~ MAIN: SaveTimeSheet ~~~~~~~~~~~~~~~~~~~\n");
-		/*Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/macgyver", "root", "Root");
-		
-		Statement stmt = conn.createStatement();		
-		String sql = "select * from user";
-		
-		ResultSet rs = stmt.executeQuery(sql);
-		LinkedList<User> results = new LinkedList<User>();
-		while(rs.next()) 
-		{
-			User a = new User(rs.getString("UserName"), rs.getString("Password"));
-			results.add(a);
-			
-			System.out.print(rs.getString("UserName") + " ");
-			System.out.println(rs.getString("Password"));
-		}*/
-	}
+	}	
 }

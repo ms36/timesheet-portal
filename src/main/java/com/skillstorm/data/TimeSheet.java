@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class TimeSheet 
 {
 	private int timeSheetId;
-    private boolean subitted;
+    private boolean submitted;
     
     // The date of the last day of the week (Sunday)
     private String weekEndingDate;
@@ -23,7 +23,7 @@ public class TimeSheet
 		super();
 		this.timeSheetId = timeSheetId;
 		this.weekDayHours = weekDayHours;
-		this.subitted = subitted;
+		this.submitted = submitted;
 		this.weekEndingDate = weekEndingDate;
 		this.user = user;
 	}
@@ -64,12 +64,12 @@ public class TimeSheet
 		}
 		this.weekDayHours[element] = weekDayHours;
 	}
-	public boolean isSubitted() {
-		return subitted;
+	public boolean isSubmitted() {
+		return submitted;
 	}
 
-	public void SetSubitted(boolean subitted) {
-		this.subitted = subitted;
+	public void setSubmitted(boolean subitted) {
+		this.submitted = subitted;
 	}
 
 	public String getWeekEndingDate() {
@@ -93,7 +93,7 @@ public class TimeSheet
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + timeSheetId;
-		result = prime * result + (subitted ? 1231 : 1237);
+		result = prime * result + (submitted ? 1231 : 1237);
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		result = prime * result + Arrays.hashCode(weekDayHours);
 		result = prime * result + ((weekEndingDate == null) ? 0 : weekEndingDate.hashCode());
@@ -111,7 +111,7 @@ public class TimeSheet
 		TimeSheet other = (TimeSheet) obj;
 		if (timeSheetId != other.timeSheetId)
 			return false;
-		if (subitted != other.subitted)
+		if (submitted != other.submitted)
 			return false;
 		if (user == null) {
 			if (other.user != null)
@@ -131,7 +131,7 @@ public class TimeSheet
 	@Override
 	public String toString() {
 		return "TimeSheet [timeSheetId=" + timeSheetId + ", weekDay=" + Arrays.toString(weekDayHours)
-				+ ", timeSheetSubitted=" + subitted + ", weekEnding=" + weekEndingDate + ", user=" + user + "]";
+				+ ", timeSheetSubitted=" + submitted + ", weekEnding=" + weekEndingDate + ", user=" + user + "]";
 	}
 	       
 }

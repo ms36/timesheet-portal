@@ -3,6 +3,7 @@ package com.skillstorm.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class ConnectionFactory {
 	
@@ -11,15 +12,15 @@ public class ConnectionFactory {
 	String user = "root";
 	String password = "Root";
 	
+	private static final Logger log = Logger.getGlobal();
 	private static ConnectionFactory connectFactory;
 	
 	private ConnectionFactory()
 	{
 		try {
 			Class.forName(driverClassName);
-		} catch (ClassNotFoundException e) {
-			System.out.println("Driver not found");
-			e.printStackTrace();
+		} catch (ClassNotFoundException e) {			
+			log.info(e.toString());
 		}
 	}
 	
