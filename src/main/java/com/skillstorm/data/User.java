@@ -2,11 +2,11 @@ package com.skillstorm.data;
 
 public class User 
 {
-	private int UserId;
+	private int userId;
 	private String username;
 	private String password;
 	private String firstName;
-	private String LastName;
+	private String lastName;
 	private boolean isLoggedIn;
 	
 	
@@ -17,18 +17,18 @@ public class User
 	}
 	public User(int userId, String username, String password, String firstName, String lastName) {
 		super();
-		UserId = userId;
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
-		LastName = lastName;
+		this.lastName = lastName;
 		this.isLoggedIn = false;
 	}
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
@@ -49,10 +49,10 @@ public class User
 		this.firstName = firstName;
 	}
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 	public boolean isLoggedIn() {
 		return isLoggedIn;
@@ -64,8 +64,8 @@ public class User
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((LastName == null) ? 0 : LastName.hashCode());
-		result = prime * result + UserId;
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + userId;
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + (isLoggedIn ? 1231 : 1237);
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -81,12 +81,12 @@ public class User
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (LastName == null) {
-			if (other.LastName != null)
+		if (lastName == null) {
+			if (other.lastName != null)
 				return false;
-		} else if (!LastName.equals(other.LastName))
+		} else if (!lastName.equals(other.lastName))
 			return false;
-		if (UserId != other.UserId)
+		if (userId != other.userId)
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -109,8 +109,8 @@ public class User
 	}
 	@Override
 	public String toString() {
-		return "User [UserId=" + UserId + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", LastName=" + LastName + ", isLoggedIn=" + isLoggedIn + "]";
+		return "User [UserId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
+				+ firstName + ", LastName=" + lastName + ", isLoggedIn=" + isLoggedIn + "]";
 	}
 	
 	

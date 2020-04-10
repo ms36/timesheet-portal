@@ -1,7 +1,7 @@
 // TimeSheet Object
 timesheetObject = 
 {
-    subitted: false,
+    submitted: false,
     timeSheetId: 0,
     user: 
     {
@@ -19,6 +19,10 @@ timesheetObject =
     ],
     weekEndingDate: ""
 }
+userObject = 
+{
+
+};
 userId = 0;
        
 // Hide/unhide elements
@@ -111,11 +115,13 @@ myForm.addEventListener("submit", (e) =>
 function appendWelcome(user) 
 {
     console.log("appendWelcome");
+    userObject = user;
+    
     //hideElements('loginOutButton');
     hideElements("saveButton") 
     //hideElements("submitButton") 
     let p = document.getElementById('welcomeMessage');
-    p.innerText = "WELCOME   " + user.firstName + "  " + user.lastName
+    p.innerText = "WELCOME   " + user.firstName + "  " + user.lastName;
     
     // Get all of this user's timesheets
     requestString = 'userid=' + user.userId;
@@ -132,12 +138,12 @@ function appendAllTimeSheets(list)
     var tSheet = timesheetObject;
     for (let timesheet of list) 
     {
-        if(timesheet.subitted === true)
+        if(timesheet.submitted === true)
         {
             appendTimeSheet(timesheet);
         }
         lastDate = timesheet.weekEndingDate;
-        lastSubmit = timesheet.subitted;
+        lastSubmit = timesheet.submitted;
         userId = timesheet.user.userId; 
     }
     
@@ -197,7 +203,7 @@ function appendTimeSheet(timesheet)
 * Fires a post request 
 * uri - appends this path to the uri
 * request - the request to be sent
-* myFunction - calls this function if request is succesfull
+* myFunction - calls this function if request is successful
 */
 function requestPost(uri, request, myFunction) 
 {
@@ -263,14 +269,14 @@ function addOneWeek(date)
     if( (Number(date[2]) + 7) > numOfDaysInMonth[date[1]])
     {
         date[2] = (Number(date[2]) + 7) - numOfDaysInMonth[date[1]];
-
+        console.log("date:", date[2] );
         // Adjust month
         if((Number(date[1]) + 1) > 12)
         {
             date[0] = Number(date[0]) + 1;
 
             // If going from December to January
-            if(Number(date[1]) > 12)
+            if(Number(date[1] + 1) > 12)
             {
                 date[1] = "01";
             }
@@ -295,11 +301,12 @@ function addOneWeek(date)
     {
         date[2] = "0" + date[2];
     }
-    if (Number(date[1]) < 10)
-    {
-        date[2] = "0" + date[1];
-    }
+    // if (Number(date[1]) < 10)
+    // {
+    //     date[1] = "0" + date[1];
+    // }
     let newDate = date[0] + "-" + date[1] + "-" + date[2]
+    console.log("date:", date[2] );
     return newDate;
 }
 /*
@@ -310,6 +317,7 @@ function addTimeSheetInput(timesheet)
 {
     console.log("addTimeSheetInput");
     timesheetObject = timesheet;
+    timesheetObject.user = userObject;
    
     var hoursInADay = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 
                         12, 13, 14, 15, 16, 17, 18, 19, 20];
